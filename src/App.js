@@ -8,6 +8,7 @@ function App() {
   const ref = createRef()
   /* handlers */
   const handleScan = data => {
+    console.log("data", data)
     if (data) {
       setResult(data)
     }
@@ -26,9 +27,10 @@ function App() {
         fps={10}
         qrbox={250}
         disableFlip={false}
-        qrCodeSuccessCallback={ console.log }
+        qrCodeSuccessCallback={ handleScan }
         qrCodeErrorCallback={ console.error }
-      />
+        />
+      <p>Result: {result}</p>
     </div>
   );
 }
