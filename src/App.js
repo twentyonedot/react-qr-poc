@@ -1,23 +1,34 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, createRef } from 'react'
+import QrReader from 'react-qr-reader'
+import  Html5QrcodeScannerPlugin  from './Html5QrcodeScannerPlugin';
 
 function App() {
+  /* states */
+  const [result, setResult] = useState("No result")
+  const ref = createRef()
+  /* handlers */
+  const handleScan = data => {
+    if (data) {
+      setResult(data)
+    }
+  }
+  const handleError = err => {
+    console.error(err)
+  }
+  const openImageDialog = () => {
+    ref.current.openImageDialog();
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Html5Qrcode React example!</h1>
+      <Html5QrcodeScannerPlugin
+        fps={10}
+        qrbox={250}
+        disableFlip={false}
+        qrCodeSuccessCallback={ console.log }
+        qrCodeErrorCallback={ console.error }
+      />
     </div>
   );
 }
